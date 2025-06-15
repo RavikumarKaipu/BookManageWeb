@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Add/Edit Book Page */
 .add-edit-book {
     max-width: 500px;
@@ -40,4 +41,48 @@
   .add-edit-book form input:focus {
     border-color: #007bff;
   }
+=======
+/* Add/Edit Book Page */
+.add-edit-book {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-edit-book h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .add-edit-book form input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+  
+  .add-edit-book form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+  
+  .add-edit-book form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-edit-book form input:focus {
+    border-color: #007bff;
+  }
+>>>>>>> 8b55888 (Remove node_modules from repo)
   
