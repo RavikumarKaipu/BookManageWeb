@@ -1,0 +1,100 @@
+/* General styles for the page */
+.forgot-main-container {
+    background-color: #f3f4f6;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+  
+  .forgot-section1 {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Content wrapper */
+  .forgot-signin .forgot-content {
+    text-align: center;
+  }
+  
+  .forgot-signin .forgot-content h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Form styling */
+  .forgot-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Input box styling */
+  .forgot-inputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+  }
+  
+  .forgot-inputBox input {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .forgot-inputBox input:focus {
+    border-color: #007bff;
+  }
+  
+  .forgot-inputBox i {
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    font-size: 12px;
+    background: #ffffff;
+    padding: 0 5px;
+    color: #555;
+  }
+  
+  /* Button styling */
+  .forgot-inputBox button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .forgot-inputBox button:hover {
+    background: #0056b3;
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: red;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  /* Success message styling (if needed in the future) */
+  .success-message {
+    color: green;
+    font-size: 14px;
+    text-align: center;
+  }
+  
