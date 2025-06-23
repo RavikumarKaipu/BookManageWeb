@@ -20,7 +20,7 @@ const AddEditBook = () => {
     const token = Cookies.get('jwt_token'); // Assuming you stored the token in localStorage
 
     if (id) {
-      axios.get(`http://localhost:5000/books/${id}`, {
+      axios.get(`https://bookmanage-backend.vercel.app/books/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`, // Include token in request header
         }
@@ -44,7 +44,7 @@ const handleSubmit = (e) => {
 
   const token = Cookies.get('jwt_token');
   const method = id ? 'put' : 'post';
-  const url = id ? `http://localhost:5000/books/${id}` : 'http://localhost:5000/books';
+  const url = id ? `https://bookmanage-backend.vercel.app/books/${id}` : 'https://bookmanage-backend.vercel.app/books';
 
   axios[method](url, book, {
     headers: {
