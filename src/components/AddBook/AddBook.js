@@ -57,7 +57,7 @@ const handleSubmit = (e) => {
       alert('Book saved');
     })
     .catch(error => {
-      console.error('Error saving book:', error.response?.data || error.message); // for debugging
+      console.error('Error saving book:', error.response?.data || error.message); 
       alert('Error saving book, please try again.');
     });
 };

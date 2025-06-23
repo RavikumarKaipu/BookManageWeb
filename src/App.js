@@ -17,7 +17,7 @@ import UsersList from './components/UsersList/UsersList'
 import LoginForm from './components/LoginForm';
 import { ThemeProvider } from './components/Themecontext/ThemeContext';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
-import NoConnection from './components/NoConnection/NoConnection'; // ✅ Import
+import NoConnection from './components/NoConnection/NoConnection';
 
 import './App.css';
 import NotFound from './components/NotFound';
