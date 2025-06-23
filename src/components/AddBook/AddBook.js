@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 import axios from 'axios';
 import './AddBook.css';
 
@@ -16,51 +16,68 @@ const AddEditBook = () => {
     PublishedDate: ''
   });
 
+  // 🔐 Ensure user is authenticated before accessing this page
   useEffect(() => {
-    const token = Cookies.get('jwt_token'); // Assuming you stored the token in localStorage
+    const token = Cookies.get('jwt_token');
+
+    if (!token) {
+      alert('Please log in to access this page.');
+      navigate('/login');
+      return;
+    }
 
     if (id) {
       axios.get(`https://bookmanage-backend.vercel.app/books/${id}`, {
         headers: {
-          'Authorization': `Bearer ${token}`, // Include token in request header
+          Authorization: `Bearer ${token}`,
         }
       })
         .then(response => {
-          setBook(response.data); // Set book data when editing
+          setBook(response.data);
         })
         .catch(error => {
-          console.error('Error fetching book:', error);
+          console.error('Error fetching book:', error.response?.data || error.message);
+          alert('Error fetching book details.');
         });
     }
-  }, [id]);
+  }, [id, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setBook({ ...book, [name]: value });
+    setBook(prev => ({ ...prev, [name]: value }));
   };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const token = Cookies.get('jwt_token');
-  const method = id ? 'put' : 'post';
-  const url = id ? `https://bookmanage-backend.vercel.app/books/${id}` : 'https://bookmanage-backend.vercel.app/books';
-
-  axios[method](url, book, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+    const token = Cookies.get('jwt_token');
+    if (!token) {
+      alert('Please login again. Token missing.');
+      navigate('/login');
+      return;
     }
-  })
-    .then(response => {
+
+    const method = id ? 'put' : 'post';
+    const url = id
+      ? `https://bookmanage-backend.vercel.app/books/${id}`
+      : 'https://bookmanage-backend.vercel.app/books';
+
+    try {
+      const response = await axios[method](url, book, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      alert('Book saved successfully.');
       navigate('/', { replace: true });
-      alert('Book saved');
-    })
-    .catch(error => {
-      console.error('Error saving book:', error.response?.data || error.message); 
-      alert('Error saving book, please try again.');
-    });
-};
+
+    } catch (error) {
+      console.error('Error saving book:', error.response?.data || error.message);
+      alert(`Error saving book: ${error.response?.data?.error || error.message}`);
+    }
+  };
 
   return (
     <div className="add-edit-book">
@@ -108,7 +125,7 @@ const handleSubmit = (e) => {
         />
         <button type="submit">Save Book</button>
       </form>
-      <h4 style={{textAlign: "center"}}>or</h4>
+      <h4 style={{ textAlign: "center" }}>or</h4>
       <button onClick={() => navigate('/', { replace: true })}>Back to Home</button>
     </div>
   );
