@@ -39,22 +39,28 @@ const AddEditBook = () => {
     setBook({ ...book, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    const token = Cookies.get('jwt_token');
-    const method = id ? 'put' : 'post';
-    const url = id ? `http://localhost:5000/books/${id}` : 'http://localhost:5000/books';
-    
-    axios[method](url, book)
-      .then(response => {
-        navigate('/', { replace: true });
-        alert('Book saved');
-      })
-      .catch(error => {
-        alert('Error saving book, please try again.');
-      });
-  };
+  const token = Cookies.get('jwt_token');
+  const method = id ? 'put' : 'post';
+  const url = id ? `http://localhost:5000/books/${id}` : 'http://localhost:5000/books';
+
+  axios[method](url, book, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => {
+      navigate('/', { replace: true });
+      alert('Book saved');
+    })
+    .catch(error => {
+      console.error('Error saving book:', error.response?.data || error.message); // for debugging
+      alert('Error saving book, please try again.');
+    });
+};
 
   return (
     <div className="add-edit-book">
