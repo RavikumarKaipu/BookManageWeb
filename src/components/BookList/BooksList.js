@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie'
 import './BooksList.css';
 import Navbar from '../Navbar/Navbar';
 
@@ -21,13 +22,16 @@ const BooksList = () => {
       return;
     }
 
+    const token=Cookies.get('jwt_token')
     const controller = new AbortController();
     const timeout = setTimeout(() => {
       controller.abort();
-    }, 7000); // ⏱️ Timeout after 7 seconds
+    }, 7000);
 
     try {
       const response = await axios.get('https://bookmanage-backend.vercel.app/books', {
+  headers: { Authorization: `Bearer ${token}` }
+},{
         signal: controller.signal,
       });
       setBooks(response.data);
