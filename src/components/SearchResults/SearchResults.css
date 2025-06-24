@@ -1,5 +1,4 @@
 
-
 .book-list {
     display: flex;
     flex-wrap: wrap;
@@ -151,4 +150,3 @@
   font-weight: 500;
   text-align: center;
 }
-

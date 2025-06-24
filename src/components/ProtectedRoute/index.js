@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Navigate } from 'react-router-dom'; 
+import { Navigate } from 'react-router-dom';  // Import Navigate for redirection
 import Cookies from 'js-cookie';
 
 const ProtectedRoute = ({ element, ...rest }) => {
@@ -10,4 +9,3 @@ const ProtectedRoute = ({ element, ...rest }) => {
 };
 
 export default ProtectedRoute;
-

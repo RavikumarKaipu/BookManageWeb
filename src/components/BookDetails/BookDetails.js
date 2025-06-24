@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -62,4 +61,3 @@ const BookDetails = () => {
 };
 
 export default BookDetails;
-

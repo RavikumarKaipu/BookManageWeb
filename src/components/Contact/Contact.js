@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import '../About/About.css';
 import { useNavigate } from 'react-router-dom';
@@ -101,7 +100,7 @@ const Contact = () => {
           name="email"
           placeholder="Your Email"
           value={formData.email}
-          readOnly // prevents editing
+          readOnly style={{cursor:'not-allowed'}}
         />
         {emailError && <span style={{ color: 'red' }}>{emailError}</span>}
         <textarea
@@ -119,4 +118,3 @@ const Contact = () => {
 };
 
 export default Contact;
-

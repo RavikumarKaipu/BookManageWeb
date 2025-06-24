@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -100,4 +99,3 @@ const SearchResults = () => {
 };
 
 export default SearchResults;
-

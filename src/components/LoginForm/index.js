@@ -1,41 +1,47 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
-import Cookies from 'js-cookie'
-
-import './LoginForm.css'
+import Cookies from 'js-cookie';
+import './LoginForm.css';
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [showSubmitError, setShowSubmitError] = useState(false)
-  const [errorMsg, setErrorMsg] = useState('')
-  const navigate = useNavigate()
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showSubmitError, setShowSubmitError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const navigate = useNavigate();
 
-  const onSubmitSuccess = (jwtToken) => {
-    Cookies.set('jwt_token', jwtToken, { expires: 30 })
-    localStorage.setItem('user', username)
-    navigate('/')
-  }
 
-  const onSubmitFailure = (errorMessage) => {
-    setShowSubmitError(true)
-    setErrorMsg(errorMessage)
-  }
+  const onSubmitSuccess = ({ token, username, isAdmin,email }) => {
+    Cookies.set('jwt_token', token, { expiresIn: '30d' });
+    localStorage.setItem('user', username || '');
+    localStorage.setItem('userEmail',email)
+    localStorage.setItem('isAdmin', isAdmin ? 'true' : 'false');
+    navigate('/');
+  };
 
-  const submitForm = async (event) => {
-    event.preventDefault()
-    const userDetails = { username, password }
+  // ❌ Handle error
+  const onSubmitFailure = msg => {
+    setShowSubmitError(true);
+    setErrorMsg(msg);
+  };
+
+  // 🔐 Submit form to backend
+  const submitForm = async event => {
+    event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/login', userDetails, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const response = await axios.post('https://bookmanage-backend.vercel.app/api/login',{
+        username,
+        password
       })
 
-      // Axios automatically throws error for non-2xx responses
-      onSubmitSuccess(response.data.token)
+
+      if (response.status===200) {
+        onSubmitSuccess(response.data);
+      } else {
+        onSubmitFailure(response.error || 'Invalid credentials');
+      }
     } catch (error) {
       if (error.response) {
         const message = error.response.data?.error || 'Invalid credentials'
@@ -43,8 +49,9 @@ const LoginForm = () => {
       } else {
         onSubmitFailure('Something went wrong. Please try again.')
       }
+
     }
-  }
+  };
 
   return (
     <div className="login-form-container">
@@ -73,7 +80,7 @@ const LoginForm = () => {
             id="username"
             className="username-input-field"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={e => setUsername(e.target.value)}
             required
           />
         </div>
@@ -85,28 +92,22 @@ const LoginForm = () => {
             id="password"
             className="password-input-field"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
           />
         </div>
 
         <button type="submit" className="login-button">Login</button>
 
-        <p className="forgot-password">
-          <Link to="/forgotPassword">Forgot Password?</Link>
-        </p>
-
+        <p className="forgot-password"><Link to="/forgotPassword">Forgot Password?</Link></p>
         {showSubmitError && <p className="error-message">*{errorMsg}</p>}
 
         <p className="or-text">or</p>
         <p className="no-account-text">You don't have an account?</p>
-
-        <Link to="/signup">
-          <button type="button" className="signup-button">SignUp</button>
-        </Link>
+        <Link to="/signup"><button type="button" className="signup-button">Sign Up</button></Link>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;
