@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 import './BooksList.css';
 import Navbar from '../Navbar/Navbar';
 
@@ -12,41 +12,40 @@ const BooksList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchBooks();
-  }, []);
-
-  const fetchBooks = async () => {
-    if (!navigator.onLine) {
-      setErrorMessage('⚠️ No internet connection. Please check your network.');
-      setLoading(false);
-      return;
-    }
-
-    const token=Cookies.get('jwt_token')
     const controller = new AbortController();
-    const timeout = setTimeout(() => {
-      controller.abort();
-    }, 7000);
 
-    try {
-      const response = await axios.get('https://bookmanage-backend.vercel.app/books', {
-  headers: { Authorization: `Bearer ${token}` }
-},{
-        signal: controller.signal,
-      });
-      setBooks(response.data);
-    } catch (error) {
-      if (error.code === 'ERR_CANCELED') {
-        setErrorMessage('⏳ Request timed out. Please try again.');
-      } else {
-        setErrorMessage('❌ Failed to load books. Try again later.');
+    const fetchBooks = async () => {
+      if (!navigator.onLine) {
+        setErrorMessage('⚠️ No internet connection. Please check your network.');
+        setLoading(false);
+        return;
       }
-      console.error("Error fetching books:", error);
-    } finally {
-      clearTimeout(timeout);
-      setLoading(false);
-    }
-  };
+
+      const token = Cookies.get('jwt_token');
+      try {
+        const response = await axios.get('https://bookmanage-backend.vercel.app/books', {
+          headers: { Authorization: `Bearer ${token}` },
+          signal: controller.signal
+        });
+        setBooks(response.data);
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          setErrorMessage('⏳ Request cancelled.');
+        } else if (error.code === 'ERR_CANCELED') {
+          setErrorMessage('⏳ Request timed out. Please try again.');
+        } else {
+          setErrorMessage('❌ Failed to load books. Try again later.');
+        }
+        console.error("Error fetching books:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBooks();
+
+    return () => controller.abort(); // Cleanup on unmount
+  }, []);
 
   return (
     <div className="books-list">
@@ -63,19 +62,17 @@ const BooksList = () => {
         <div className="error-message">
           <p>{errorMessage}</p>
         </div>
+      ) : books.length === 0 ? (
+        <p>No books found. Add some!</p>
       ) : (
         <div className="books-container">
-          {books.length === 0 ? (
-            <p>No books found. Add some!</p>
-          ) : (
-            books.map((book) => (
-              <div key={book._id} className="book-item">
-                <h3>{book.Title}</h3>
-                <p><strong>Author:</strong> {book.Author}</p>
-                <Link to={`/books/${book._id}`}>View Details</Link>
-              </div>
-            ))
-          )}
+          {books.map((book) => (
+            <div key={book._id} className="book-item">
+              <h3>{book.Title}</h3>
+              <p><strong>Author:</strong> {book.Author}</p>
+              <Link to={`/books/${book._id}`}>View Details</Link>
+            </div>
+          ))}
         </div>
       )}
 
