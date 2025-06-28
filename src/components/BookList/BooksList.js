@@ -13,9 +13,10 @@ const BooksList = () => {
   const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
   useEffect(() => {
-    const controller = new AbortController();
-
     const fetchBooks = async () => {
+      setLoading(true);
+      setErrorMessage('');
+
       if (!navigator.onLine) {
         setErrorMessage('⚠️ No internet connection. Please check your network.');
         setLoading(false);
@@ -23,37 +24,31 @@ const BooksList = () => {
       }
 
       const token = Cookies.get('jwt_token');
-      const url=isAdmin?'https://bookmanage-backend.vercel.app/allbooks':'https://bookmanage-backend.vercel.app/books'
+      const url = isAdmin
+        ? 'https://bookmanage-backend.vercel.app/allbooks'
+        : 'https://bookmanage-backend.vercel.app/books';
+
       try {
         const response = await axios.get(url, {
           headers: { Authorization: `Bearer ${token}` },
-          // signal: controller.signal
         });
         setBooks(response.data);
       } catch (error) {
-        if (axios.isCancel(error)) {
-          setErrorMessage('⏳ Request cancelled.');
-        } else if (error.code === 'ERR_CANCELED') {
-          setErrorMessage('⏳ Request timed out. Please try again.');
-        } else {
-          setErrorMessage('❌ Failed to load books. Try again later.');
-        }
-        console.error("Error fetching books:", error);
+        console.error('Error fetching books:', error);
+        setErrorMessage('❌ Failed to load books. Please try again.');
       } finally {
         setLoading(false);
       }
     };
 
     fetchBooks();
-
-    return () => controller.abort();
   }, [isAdmin]);
 
   return (
     <div className="books-list">
       <Navbar />
       <h1>Books List</h1>
-      <Link to="/add-book" className="add-btn">Add New Book</Link>
+      <Link to="/add-book" className="add-btn">+ Add New Book</Link>
 
       {loading ? (
         <div className="loader-wrapper">
@@ -65,20 +60,26 @@ const BooksList = () => {
           <p>{errorMessage}</p>
         </div>
       ) : books.length === 0 ? (
-        <p>No books found. Add some!</p>
+        <p className="no-books">No books found. Add some!</p>
       ) : (
         <div className="books-container">
           {books.map((book) => (
             <div key={book._id} className="book-item">
               <h3>{book.Title}</h3>
               <p><strong>Author:</strong> {book.Author}</p>
-              <Link to={`/books/${book._id}`}>View Details</Link>
+              <p><strong>Genre:</strong> {book.Genre}</p>
+              <Link to={`/book-details/${book._id}`}>
+                <button>View Details</button>
+              </Link>
+              <Link to={`/edit/${book._id}`}>
+                <button>Edit</button>
+              </Link>
             </div>
           ))}
         </div>
       )}
 
-      <button onClick={() => navigate('/', { replace: true })}>Back to Home</button>
+      <button onClick={() => navigate('/')}>Back to Home</button>
     </div>
   );
 };
