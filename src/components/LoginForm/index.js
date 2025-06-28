@@ -61,7 +61,7 @@ const LoginForm = () => {
         alt="website logo"
       />
       <img
-        src="https://media.licdn.com/dms/image/v2/D5612AQFDzBbRWspm1A/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1693454031927?e=2147483647&v=beta&t=Q5jbPMu1D6_zR0zlelZknhu-qtzdZmFw3sssfG--I58"
+        src="https://rickkettner.com/wp-content/uploads/2020/12/Best-Management-Books.jpg"
         className="login-image"
         alt="website login"
       />
