@@ -21,37 +21,33 @@ const Navbar = () => {
   return (
     <nav className={isDarkMode ? 'dark-nav' : 'light-nav'}>
       <ul className="navbar-list">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/add-book">Add Book</Link></li>
-        <li><Link to="/books-list">Books List</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
-        <li><Link to="/about">About</Link></li>
+  <li><Link to="/">Home</Link></li>
+  <li><Link to="/add-book">Add Book</Link></li>
+  {isAdmin && <li><Link to="/allbooks">All Books</Link></li>}
+  <li><Link to="/books-list">Books List</Link></li>
 
-        {/* ✅ Show Users List only if admin */}
-        {isAdmin && (
-          <>
-          <li><Link to="/users-list">Users</Link></li>
-          <li><Link to="/allbooks">All-Books</Link></li>
-          </>
-        )}
+  <li><Link to="/contact">Contact</Link></li>
+  <li><Link to="/about">About</Link></li>
+  {isAdmin && <li><Link to="/users-list">Users</Link></li>}
 
-        <li onClick={onLogout} className="logout-mobile-btn">
-          <Link>
-            <img
-              src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-log-out-img.png"
-              alt="logout icon"
-              className="logout-icon"
-            />
-          </Link>
-        </li>
+  <li onClick={onLogout} className="logout-mobile-btn">
+    <Link>
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-log-out-img.png"
+        alt="logout icon"
+        className="logout-icon"
+      />
+    </Link>
+  </li>
 
-        <li
-          className={isDarkMode ? 'dark-theme-toggle-btn' : 'theme-toggle-btn'}
-          onClick={toggleTheme}
-        >
-          <Link>{isDarkMode ? '🌙' : '☀️'}</Link>
-        </li>
-      </ul>
+  <li
+    className={isDarkMode ? 'dark-theme-toggle-btn' : 'theme-toggle-btn'}
+    onClick={toggleTheme}
+  >
+    <Link>{isDarkMode ? '🌙' : '☀️'}</Link>
+  </li>
+</ul>
+
     </nav>
   );
 };

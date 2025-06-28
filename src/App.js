@@ -21,6 +21,7 @@ import NoConnection from './components/NoConnection/NoConnection';
 
 import './App.css';
 import NotFound from './components/NotFound';
+import AllBooks from './components/AllBooks';
 
 const App = () => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -56,6 +57,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/signup" element={<Signup/>}/>
+          <Route path="/allbooks" element={<ProtectedRoute element={<AllBooks />} />} />
           <Route path='/forgotPassword' element={<ForgotPassword/>}/>
           <Route path="/" element={<ProtectedRoute element={<Home />} />} />
           <Route exact path="/login" element={<LoginForm/>} />
