@@ -32,7 +32,10 @@ const BooksList = () => {
         const response = await axios.get(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setBooks(response.data);
+
+        // 🛠 Extract books properly from response
+        const fetchedBooks = isAdmin ? response.data : response.data.books;
+        setBooks(fetchedBooks);
       } catch (error) {
         console.error('Error fetching books:', error);
         setErrorMessage('❌ Failed to load books. Please try again.');
