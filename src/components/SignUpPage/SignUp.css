@@ -7,7 +7,7 @@
   font-family: 'Quicksand', sans-serif;
 }
 
-.body1{
+.body1 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +15,7 @@
   background: #000;
 }
 
-.section1{
+.section1 {
   position: absolute;
   width: 100vw;
   height: 110vh;
@@ -138,6 +138,8 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .signin .content .form .links a {
@@ -164,16 +166,60 @@ input[type="submit"]:active {
   opacity: 0.6;
 }
 
+/* Responsive Styles */
 @media (max-width: 900px) {
-  section span {
+  .section1 span {
     width: calc(10vw - 2px);
     height: calc(10vw - 2px);
+  }
+
+  .section1 .signin {
+    width: 90%;
+    padding: 30px;
+  }
+
+  .section1 .signin .content h2 {
+    font-size: 1.5em;
+  }
+
+  .section1 .signin .content .form .inputBox input {
+    padding: 20px 10px 7px;
+    font-size: 0.95em;
+  }
+
+  .signin .content .form .inputBox input[type="submit"] {
+    font-size: 1.2em;
   }
 }
 
 @media (max-width: 600px) {
-  section span {
+  .section1 span {
     width: calc(20vw - 2px);
     height: calc(20vw - 2px);
+  }
+
+  .section1 .signin {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .signin .content .form .links {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .section1 .signin .content h2 {
+    font-size: 1.3em;
+    text-align: center;
+  }
+
+  .section1 .signin .content .form .inputBox input {
+    padding: 15px 10px 6px;
+    font-size: 0.9em;
+  }
+
+  .signin .content .form .inputBox input[type="submit"] {
+    font-size: 1.1em;
   }
 }

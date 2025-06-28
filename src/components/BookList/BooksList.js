@@ -10,6 +10,7 @@ const BooksList = () => {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
   useEffect(() => {
     const controller = new AbortController();
@@ -22,10 +23,11 @@ const BooksList = () => {
       }
 
       const token = Cookies.get('jwt_token');
+      const url=isAdmin?'https://bookmanage-backend.vercel.app/allbooks':'https://bookmanage-backend.vercel.app/books'
       try {
-        const response = await axios.get('https://bookmanage-backend.vercel.app/books', {
+        const response = await axios.get(url, {
           headers: { Authorization: `Bearer ${token}` },
-          signal: controller.signal
+          // signal: controller.signal
         });
         setBooks(response.data);
       } catch (error) {
@@ -44,8 +46,8 @@ const BooksList = () => {
 
     fetchBooks();
 
-    return () => controller.abort(); // Cleanup on unmount
-  }, []);
+    return () => controller.abort();
+  }, [isAdmin]);
 
   return (
     <div className="books-list">

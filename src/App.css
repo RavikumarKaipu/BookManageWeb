@@ -1,9 +1,8 @@
-
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 
 h1, h2 {
@@ -26,7 +25,6 @@ input, select, button {
   font-size: 1rem;
 }
 
-
 nav {
   background-color: #003cff;
   padding: 10px 20px;
@@ -38,6 +36,7 @@ nav ul {
   padding: 0;
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 nav ul li {
@@ -52,10 +51,9 @@ nav ul li a {
 }
 
 nav ul li a:hover {
- color:white;
+  color: white;
   text-decoration: underline;
 }
-
 
 .container {
   max-width: 1200px;
@@ -74,8 +72,6 @@ nav ul li a:hover {
   color: black;
 }
 
-
-
 .dark-nav {
   background-color: #333;
 }
@@ -91,6 +87,7 @@ nav ul li a:hover {
   align-items: center;
   margin: 0;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 .navbar-list li {
@@ -103,5 +100,53 @@ nav ul li a:hover {
   font-size: 16px;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
+  .navbar-list {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
+  .container {
+    padding: 0 15px;
+  }
+
+  nav ul li,
+  .navbar-list li {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    padding: 10px;
+  }
+
+  nav ul li a,
+  .navbar-list li a {
+    font-size: 0.9rem;
+  }
+
+  .container {
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  input, select, button {
+    font-size: 0.95rem;
+  }
+}

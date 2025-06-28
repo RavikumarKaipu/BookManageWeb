@@ -1,39 +1,60 @@
 .book-details {
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: #f4f4f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .book-details h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-  
-  .book-details p {
-    font-size: 1.1rem;
-    margin: 5px 0;
-  }
-  
-  .book-details button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .book-details button:hover {
-    background-color: #0056b3;
-  }
-  
-  .loader-wrapper {
+  padding: 20px;
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: #f4f4f9;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.book-details h1 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #2c3e50;
   text-align: center;
-  margin: 40px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.book-details p {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.book-details button {
+  margin-top: 30px;
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.book-details button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.book-details button:active {
+  transform: scale(0.98);
+}
+
+/* Loader styles */
+.loader-wrapper {
+  text-align: center;
+  margin: 50px 0;
 }
 
 .loader {
@@ -49,4 +70,36 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive styles */
+@media screen and (max-width: 480px) {
+  .book-details {
+    padding: 15px;
+    margin: 20px;
+  }
+
+  .book-details h1 {
+    font-size: 1.5rem;
+  }
+
+  .book-details p {
+    font-size: 1rem;
+  }
+
+  .book-details button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
 }

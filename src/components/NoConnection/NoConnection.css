@@ -4,3 +4,18 @@
   color: red;
   font-family: Arial, sans-serif;
 }
+
+/* ✅ Responsive Enhancements */
+@media (max-width: 768px) {
+  .no-connection {
+    padding: 80px 15px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .no-connection {
+    padding: 60px 10px;
+    font-size: 0.95rem;
+  }
+}

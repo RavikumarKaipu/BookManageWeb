@@ -13,7 +13,8 @@ const Navbar = () => {
   const onLogout = () => {
     Cookies.remove('jwt_token');
     localStorage.removeItem('user');
-    localStorage.removeItem('isAdmin'); // ✅ Clear admin status
+    localStorage.removeItem('isAdmin'); 
+    localStorage.removeItem('userEmail')// ✅ Clear admin status
     navigate('/login');
   };
 
@@ -28,7 +29,10 @@ const Navbar = () => {
 
         {/* ✅ Show Users List only if admin */}
         {isAdmin && (
+          <>
           <li><Link to="/users-list">Users</Link></li>
+          <li><Link to="/allbooks">All-Books</Link></li>
+          </>
         )}
 
         <li onClick={onLogout} className="logout-mobile-btn">

@@ -60,12 +60,10 @@ const App = () => {
           <Route path="/" element={<ProtectedRoute element={<Home />} />} />
           <Route exact path="/login" element={<LoginForm/>} />
           <Route path="/books-list" element={<ProtectedRoute element={<BooksList />} />} />
-          <Route path="/book/:id" element={<ProtectedRoute element={<BookDetails />} />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/" element={<ProtectedRoute element={<Home />} />} />
           <Route path="/login" element={<LoginForm />} />
-          <Route path="/books-list" element={<ProtectedRoute element={<BooksList />} />} />
           <Route path="/books/:id" element={<ProtectedRoute element={<BookDetails />} />} />
           <Route path="/add-book" element={<ProtectedRoute element={<AddBook />} />} />
           <Route path="/edit/:id" element={<ProtectedRoute element={<AddEditBook />} />} />
@@ -73,6 +71,7 @@ const App = () => {
           <Route path="/about" element={<ProtectedRoute element={<About />} />} />
           <Route path="/search-results" element={<ProtectedRoute element={<SearchResults />} />} />
           <Route path="/book-details/:id" element={<ProtectedRoute element={<BookDetails />} />} />
+          <Route path='/allbooks' element={<ProtectedRoute element={<BooksList/>}/>}/>
           <Route path="/users-list" element={<ProtectedRoute element={<UsersList />} />} />
           <Route path='*' element={<NotFound/>}/>
         </Routes>

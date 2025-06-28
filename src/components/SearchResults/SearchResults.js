@@ -23,7 +23,7 @@ const SearchResults = () => {
         if (searchQuery) {
           filtered = filtered.filter(book =>
             book.Title.toLowerCase().includes(searchQuery.toLowerCase())
-          );
+          );  
         }
 
         if (genreFilter) {
